@@ -1,0 +1,16 @@
+MOGGA FRED SAM
+Computer Science Student | Developer
+
+PROFILE
+Computer Science student passionate about practical, human-centred technology.
+I build with web technologies, Python, Arduino and IoT.
+
+SKILLS
+Python, JavaScript, HTML, CSS, Java, C, React, Flutter/Dart,
+Git/GitHub, MySQL, Firebase, Arduino, IoT, Geoinformatics and Remote Sensing.
+
+EDUCATION
+Bachelor of Science in Computer Science — Expected graduation: 2026
+
+CONTACT
+Please update the email and social links on the portfolio site with your real details.
