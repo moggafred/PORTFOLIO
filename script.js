@@ -86,7 +86,7 @@ updateActiveLink();
 const projectsGrid = document.getElementById('projectsGrid');
 const projectsStatus = document.getElementById('projectsStatus');
 const projectDemoUrls = {
-    'AQG-STUDY': null,
+    'AQG-STUDY': 'https://aqg-study-frontend-phi.vercel.app/',
     'PORTFOLIO': 'https://mogga-portfolio.vercel.app',
     'DF-SPORTS-ARENA': 'https://natz-sports-arena.vercel.app'
 };
