@@ -47,6 +47,7 @@ PORTFOLIO/
    - Add public repositories to the `moggafred` GitHub account; they will appear automatically in the projects section, sorted by recent activity.
    - Update the `username` value in `script.js` if you want to show a different GitHub account.
    - To add a live demo link, set the repository's **About → Website** field on GitHub.
+   - Curated demo URLs and disabled demos can be set in `projectDemoUrls` in `script.js`; this overrides the repository homepage for matching project names.
    - Forked and archived repositories are not shown. The portfolio loads up to 100 repositories from GitHub's public API, so it needs an internet connection.
 
 4. **Update Skills**:

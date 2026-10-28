@@ -85,6 +85,11 @@ updateActiveLink();
 // Load the latest public projects from GitHub.
 const projectsGrid = document.getElementById('projectsGrid');
 const projectsStatus = document.getElementById('projectsStatus');
+const projectDemoUrls = {
+    'AQG-STUDY': null,
+    'PORTFOLIO': 'https://mogga-portfolio.vercel.app',
+    'DF-SPORTS-ARENA': 'https://natz-sports-arena.vercel.app'
+};
 
 const createProjectLink = (url, iconClass, label) => {
     let safeUrl;
@@ -152,8 +157,11 @@ const createProjectCard = (repository) => {
     links.className = 'project-links';
     const sourceLink = createProjectLink(repository.html_url, 'fab fa-github', 'View on GitHub');
     if (sourceLink) links.append(sourceLink);
-    if (repository.homepage) {
-        const demoLink = createProjectLink(repository.homepage, 'fas fa-external-link-alt', 'Live demo');
+    const demoUrl = Object.prototype.hasOwnProperty.call(projectDemoUrls, repository.name)
+        ? projectDemoUrls[repository.name]
+        : repository.homepage;
+    if (demoUrl) {
+        const demoLink = createProjectLink(demoUrl, 'fas fa-external-link-alt', 'Live demo');
         if (demoLink) links.append(demoLink);
     }
 
