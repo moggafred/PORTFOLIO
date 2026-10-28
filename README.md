@@ -44,7 +44,10 @@ PORTFOLIO/
    - Update LinkedIn link (line 192)
 
 3. **Add Your Projects**:
-   - Modify or add new project cards in the projects section (lines 148-177)
+   - Add public repositories to the `moggafred` GitHub account; they will appear automatically in the projects section, sorted by recent activity.
+   - Update the `username` value in `script.js` if you want to show a different GitHub account.
+   - To add a live demo link, set the repository's **About → Website** field on GitHub.
+   - Forked and archived repositories are not shown. The portfolio loads up to 100 repositories from GitHub's public API, so it needs an internet connection.
 
 4. **Update Skills**:
    - Customize skill cards in the skills section (lines 103-125)
@@ -90,8 +93,7 @@ Edit the CSS variables at the top of `styles.css`:
 
 ## 📝 Notes
 
-- Feel free to add more projects by duplicating project card elements
-- You can add images to project cards by adding an `<img>` tag inside the `project-header` div
+- The projects section reads repository names, descriptions, primary languages, creation years, and homepage links from GitHub.
 - Consider adding a contact form using services like Formspree or Netlify Forms
 
 ## 🎓 Next Steps

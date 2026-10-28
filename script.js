@@ -82,6 +82,138 @@ const updateActiveLink = () => {
 window.addEventListener('scroll', updateActiveLink);
 updateActiveLink();
 
+// Load the latest public projects from GitHub.
+const projectsGrid = document.getElementById('projectsGrid');
+const projectsStatus = document.getElementById('projectsStatus');
+
+const createProjectLink = (url, iconClass, label) => {
+    let safeUrl;
+    try {
+        const parsedUrl = new URL(url);
+        if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') return null;
+        safeUrl = parsedUrl.href;
+    } catch (error) {
+        return null;
+    }
+
+    const link = document.createElement('a');
+    link.className = 'project-link';
+    link.href = safeUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+
+    const icon = document.createElement('i');
+    icon.className = iconClass;
+    icon.setAttribute('aria-hidden', 'true');
+    link.append(icon, document.createTextNode(` ${label}`));
+    return link;
+};
+
+const createProjectCard = (repository) => {
+    const card = document.createElement('article');
+    card.className = 'project-card';
+
+    const header = document.createElement('div');
+    header.className = 'project-header';
+    const icon = document.createElement('div');
+    icon.className = 'project-icon';
+    const iconImage = document.createElement('i');
+    iconImage.className = 'fas fa-code-branch';
+    iconImage.setAttribute('aria-hidden', 'true');
+    icon.append(iconImage);
+
+    const info = document.createElement('div');
+    info.className = 'project-info';
+    const title = document.createElement('h3');
+    title.textContent = repository.name;
+    info.append(title);
+    if (repository.created_at) {
+        const year = document.createElement('span');
+        year.className = 'project-year';
+        year.textContent = String(new Date(repository.created_at).getFullYear());
+        info.append(year);
+    }
+    header.append(icon, info);
+
+    const description = document.createElement('p');
+    description.className = 'project-description';
+    description.textContent = repository.description || 'No description provided yet.';
+
+    const tech = document.createElement('div');
+    tech.className = 'project-tech';
+    if (repository.language) {
+        const badge = document.createElement('span');
+        badge.className = 'tech-badge';
+        badge.textContent = repository.language;
+        tech.append(badge);
+    }
+
+    const links = document.createElement('div');
+    links.className = 'project-links';
+    const sourceLink = createProjectLink(repository.html_url, 'fab fa-github', 'View on GitHub');
+    if (sourceLink) links.append(sourceLink);
+    if (repository.homepage) {
+        const demoLink = createProjectLink(repository.homepage, 'fas fa-external-link-alt', 'Live demo');
+        if (demoLink) links.append(demoLink);
+    }
+
+    card.append(header, description);
+    if (tech.childElementCount) card.append(tech);
+    card.append(links);
+    return card;
+};
+
+const showProjectStatus = (message, profileUrl) => {
+    if (!projectsStatus) return;
+    projectsStatus.replaceChildren(document.createTextNode(message));
+
+    if (profileUrl) {
+        const profileLink = createProjectLink(profileUrl, 'fab fa-github', 'View GitHub profile');
+        if (profileLink) {
+            projectsStatus.append(document.createTextNode(' '), profileLink);
+        }
+    }
+    projectsStatus.hidden = false;
+};
+
+const loadGitHubProjects = async () => {
+    if (!projectsGrid || !projectsStatus) return;
+
+    const username = 'moggafred';
+    const profileUrl = `https://github.com/${username}`;
+
+    try {
+        const response = await fetch(
+            `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=100`,
+            { headers: { Accept: 'application/vnd.github+json' } }
+        );
+        if (!response.ok) {
+            throw new Error(`GitHub returned HTTP ${response.status}.`);
+        }
+
+        const repositories = await response.json();
+        if (!Array.isArray(repositories)) {
+            throw new Error('GitHub returned an unexpected response.');
+        }
+
+        const projects = repositories.filter(repository =>
+            !repository.fork && !repository.archived && !repository.disabled
+        );
+
+        if (!projects.length) {
+            showProjectStatus('No public projects found.', profileUrl);
+            return;
+        }
+
+        projectsGrid.replaceChildren(...projects.map(createProjectCard));
+        projectsGrid.querySelectorAll('.project-card').forEach(observeForAnimation);
+        projectsStatus.hidden = true;
+    } catch (error) {
+        console.error('Unable to load GitHub projects:', error);
+        showProjectStatus('Projects could not be loaded from GitHub.', profileUrl);
+    }
+};
+
 // Intersection Observer for scroll animations
 const observerOptions = {
     threshold: 0.1,
@@ -99,16 +231,19 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements for animation
-const animateElements = document.querySelectorAll(
-    '.skill-tag, .project-card, .highlight-card, .timeline-content, .info-item'
-);
-
-animateElements.forEach(element => {
+const observeForAnimation = (element) => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(20px)';
     element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(element);
-});
+};
+
+const animateElements = document.querySelectorAll(
+    '.skill-tag, .project-card, .highlight-card, .timeline-content, .info-item'
+);
+
+animateElements.forEach(observeForAnimation);
+loadGitHubProjects();
 
 // Navbar scroll effect
 const navbar = document.querySelector('.navbar');

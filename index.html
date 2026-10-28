@@ -184,97 +184,10 @@
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="projects-grid" id="projectsGrid">
-                <!-- Projects will be dynamically loaded from GitHub API -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="project-info">
-                            <h3>Portfolio Website</h3>
-                            <span class="project-year"></span>
-                        </div>
-                    </div>
-                    <p class="project-description">My personal portfolio showcasing my skills and projects with a modern, responsive design.</p>
-                    <div class="project-tech">
-                        <span class="tech-badge">HTML5</span>
-                        <span class="tech-badge">CSS</span>
-                        <span class="tech-badge">JavaScript</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/moggafred" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <img src="https://via.placeholder.com/400x200/1a2a3a/57e6cd?text=Arduino+IoT" alt="Arduino IoT System" style="width: 100%; height: auto; border-radius: 8px 8px 0 0;">
-                    </div>
-                    <div style="padding: 16px 22px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(190,211,255,0.16);">
-                        <div class="project-icon">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <div class="project-info">
-                            <h3>Arduino IoT System</h3>
-                            <span class="project-year"></span>
-                        </div>
-                    </div>
-                    <p class="project-description">IoT project using Arduino to monitor and control devices remotely with cloud connectivity.</p>
-                    <div class="project-tech">
-                        <span class="tech-badge">Arduino</span>
-                        <span class="tech-badge">C++</span>
-                        <span class="tech-badge">IoT</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/moggafred" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <img src="https://via.placeholder.com/400x200/1a2a3a/57e6cd?text=Geospatial+GIS" alt="Geospatial Data Visualizer" style="width: 100%; height: auto; border-radius: 8px 8px 0 0;">
-                    </div>
-                    <div style="padding: 16px 22px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(190,211,255,0.16);">
-                        <div class="project-icon">
-                            <i class="fas fa-map"></i>
-                        </div>
-                        <div class="project-info">
-                            <h3>Geospatial Data Visualizer</h3>
-                            <span class="project-year"></span>
-                        </div>
-                    </div>
-                    <p class="project-description">Tool for visualizing and analyzing geographic data using remote sensing techniques and GIS principles.</p>
-                    <div class="project-tech">
-                        <span class="tech-badge">GIS</span>
-                        <span class="tech-badge">Remote Sensing</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/moggafred" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <img src="https://via.placeholder.com/400x200/1a2a3a/57e6cd?text=Python+Automation" alt="Python Automation Tools" style="width: 100%; height: auto; border-radius: 8px 8px 0 0;">
-                    </div>
-                    <div style="padding: 16px 22px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(190,211,255,0.16);">
-                        <div class="project-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="project-info">
-                            <h3>Python Automation Tools</h3>
-                            <span class="project-year"></span>
-                        </div>
-                    </div>
-                    <p class="project-description">Collection of Python scripts and utilities for automating everyday tasks and data processing.</p>
-                    <div class="project-tech">
-                        <span class="tech-badge">Python</span>
-                        <span class="tech-badge">Automation</span>
-                        <span class="tech-badge">Scripting</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-            </div>
+            <p class="projects-status" id="projectsStatus" role="status" aria-live="polite">
+                Loading public projects from GitHub…
+            </p>
+            <div class="projects-grid" id="projectsGrid"></div>
         </div>
     </section>
 
